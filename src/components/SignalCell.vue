@@ -13,8 +13,8 @@ export default {
   },
   methods: {
     getDataAgeInMinutes (timestamp) {
-      let now = moment()
-      let ts = moment(timestamp)
+      let now = moment.utc()
+      let ts = moment.utc(timestamp)
       let diff = now.diff(ts, 'minutes')
       return diff
     }
