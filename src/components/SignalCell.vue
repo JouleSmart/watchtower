@@ -14,8 +14,8 @@ export default {
   methods: {
     getDataAgeInMinutes (timestamp) {
       timestamp = typeof timestamp === 'string' ? parseInt(timestamp) : timestamp
-      let now = moment.utc()
-      let ts = moment.utc(timestamp)
+      let now = moment()
+      let ts = moment.unix(timestamp)
       let diff = now.diff(ts, 'minutes')
       return diff
     }
