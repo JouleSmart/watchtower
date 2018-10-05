@@ -23,7 +23,6 @@ export default {
   computed: {
     signalStatus () {
       let age = this.getDataAgeInMinutes(this.site.timestamp)
-      console.log('age', age)
       if (age >= 30) {
         return 'red'
       } else if (age >= 10) {
