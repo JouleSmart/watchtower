@@ -20,10 +20,19 @@
             class="alarm-anchor"></span>
           <v-dialog v-model="dialogAlarm[props.item.name]" max-width="700" :key="props.item.name">
             <v-card>
-              <v-card-title class="headline">{{ props.item.alarms.alertText }}</v-card-title>
+              <v-card-title primary-title>
+                <div>
+                  <div class="headline">{{ props.item.alarms.alertText }}</div>
+                  <span class="grey--text">{{ props.item.alarms.timestamp | dateFormat }}</span>
+                </div>
+              </v-card-title>
+
               <v-list two-line>
                 <template v-for="(status, index) in props.item.alarms.statusText">
                   <v-list-tile :key="index">
+                    <v-list-title-avatar>
+                      <v-icon class="alarm-icon red--text">report_problem</v-icon>
+                    </v-list-title-avatar>
                     <v-list-tile-content>
                       <v-list-tile-title>{{ status }}</v-list-tile-title>
                     </v-list-tile-content>
@@ -47,6 +56,7 @@
 
 <script>
 import db from '@/firebase/init'
+import moment from 'moment'
 
 export default {
   name: 'NestedTable',
@@ -74,6 +84,13 @@ export default {
     },
     hasAlarms (device) {
       return device.hasOwnProperty('alarms')
+    }
+  },
+  filters: {
+    dateFormat (value) {
+      if (!value) return ''
+      value = moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a")
+      return value
     }
   }
 }
@@ -103,5 +120,9 @@ export default {
 
 .alarm-anchor {
   cursor: pointer;
+}
+
+.alarm-icon {
+  padding-right: 10px;
 }
 </style>
