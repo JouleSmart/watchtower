@@ -13,7 +13,7 @@
         <td width="15%"><span class="dot" :class="statusCodes[props.item.status.signal]"></span></td>
         <td width="15%"><span class="dot" :class="statusCodes[props.item.status.zigbee]"></span></td>
         <td width="15%"><span class="dot" :class="statusCodes[props.item.status.modbus]"></span></td>
-        <td width="15%" v-if="props.item.hasOwnProperty('alarms')">
+        <td width="15%" v-if="props.item.alarms && props.item.alarms.alertText !== ''">
           <span
             @click.stop="$set(dialogAlarm, props.item.name, true)"
             :class="isZero(props.item.status.alarm)"
@@ -30,9 +30,9 @@
               <v-list two-line>
                 <template v-for="(status, index) in props.item.alarms.statusText">
                   <v-list-tile :key="index">
-                    <v-list-title-avatar>
+                    <v-list-tile-avatar>
                       <v-icon class="alarm-icon red--text">report_problem</v-icon>
-                    </v-list-title-avatar>
+                    </v-list-tile-avatar>
                     <v-list-tile-content>
                       <v-list-tile-title>{{ status }}</v-list-tile-title>
                     </v-list-tile-content>
@@ -46,7 +46,7 @@
             </v-card>
           </v-dialog>
         </td>
-        <td width="15%" v-if="!props.item.hasOwnProperty('alarms')">
+        <td width="15%" v-if="!props.item.alarms || props.item.alarms.alertText == ''">
           <span :class="isZero(props.item.status.alarm)"></span>
         </td>
       </tr>
@@ -89,7 +89,7 @@ export default {
   filters: {
     dateFormat (value) {
       if (!value) return ''
-      value = moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a")
+      value = moment.unix(value).format("dddd, MMMM Do YYYY, h:mm:ss a")
       return value
     }
   }
