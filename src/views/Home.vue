@@ -43,8 +43,8 @@ export default {
       headers: [
         { text: 'Name', value: 'name', width: '40%' },
         { text: '4G Signal', value: 'signal', width: '15%', sortable: false },
-        { text: 'Zigbee', value: 'zigbee', width: '15%', sortable: false },
-        { text: 'Mobus', value: 'mobus', width: '15%', sortable: false },
+        { text: 'ZigBee', value: 'zigbee', width: '15%', sortable: false },
+        { text: 'Modbus', value: 'mobus', width: '15%', sortable: false },
         { text: 'Alarm', value: 'alarm', width: '15%', sortable: false }
       ],
       subData: [],
